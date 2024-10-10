@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookPOS - Store Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            color: #ffffff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+        nav {
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            list-style: none;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff6b6b;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .card h2 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: #ffffff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background: #e65555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .action-buttons button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-edit {
+            background-color: #FF9800;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-edit:hover {
+            background-color: #e68a00;
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background: #333;
+            color: #ffffff;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav li {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>BookPOS</h1>
+        <p>Bookstore Management System</p>
+    </div>
+</header>
+
+<nav>
+    <div class="container">
+        <ul>
+            <li><a href="Main Page.html">Home</a></li>
+            <li><a href="Customer Management.html">Manage Customers</a></li>
+            <li><a href="Store Management.html">Manage Store</a></li>
+            <li><a href="Order Management.html">Manage Orders</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="card">
+        <h2>Add Item</h2>
+        <form id="add-item-form">
+            <input type="text" id="item-name" placeholder="Item Name" required>
+            <input type="number" id="item-price" placeholder="Price" step="0.01" min="0" required>
+            <input type="number" id="item-quantity" placeholder="Quantity" min="0" required>
+            <button type="submit" class="btn">Add Item</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Search Item</h2>
+        <form id="search-item-form">
+            <input type="text" id="search-item" placeholder="Search by item name">
+            <button type="submit" class="btn">Search</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Inventory</h2>
+        <table id="inventory-table">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Inventory items will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 BookPOS - Empowering Bookstores</p>
+    </div>
+</footer>
+
+<script>
+    const inventory = [];
+
+    document.getElementById('add-item-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('item-name').value;
+        const price = document.getElementById('item-price').value;
+        const quantity = document.getElementById('item-quantity').value;
+
+        const newItem = { name, price: parseFloat(price).toFixed(2), quantity };
+        inventory.push(newItem);
+        renderInventory();
+
+        this.reset();
+    });
+
+    document.getElementById('inventory-table').addEventListener('click', function(e) {
+        const rowIndex = e.target.closest('tr').rowIndex - 1;
+        if (e.target.classList.contains('btn-edit')) {
+            editItem(rowIndex);
+        } else if (e.target.classList.contains('btn-delete')) {
+            inventory.splice(rowIndex, 1);
+            renderInventory();
+        }
+    });
+
+    function renderInventory() {
+        const tableBody = document.querySelector('#inventory-table tbody');
+        tableBody.innerHTML = '';
+        inventory.forEach((item, index) => {
+            const row = `
+        <tr>
+          <td>${item.name}</td>
+          <td>$${item.price}</td>
+          <td>${item.quantity}</td>
+          <td class="action-buttons">
+            <button class="btn-edit">Edit</button>
+            <button class="btn-delete">Delete</button>
+          </td>
+        </tr>
+      `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function editItem(index) {
+        const item = inventory[index];
+        document.getElementById('item-name').value = item.name;
+        document.getElementById('item-price').value = item.price;
+        document.getElementById('item-quantity').value = item.quantity;
+        inventory.splice(index, 1);
+        renderInventory();
+    }
+
+    document.getElementById('search-item-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const searchQuery = document.getElementById('search-item').value.toLowerCase();
+        const filteredItems = inventory.filter(item => item.name.toLowerCase().includes(searchQuery));
+        renderFilteredInventory(filteredItems);
+    });
+
+    function renderFilteredInventory(items) {
+        const tableBody = document.querySelector('#inventory-table tbody');
+        tableBody.innerHTML = '';
+        items.forEach((item, index) => {
+            const row = `
+        <tr>
+          <td>${item.name}</td>
+          <td>$${item.price}</td>
+          <td>${item.quantity}</td>
+          <td class="action-buttons">
+            <button class="btn-edit">Edit</button>
+            <button class="btn-delete">Delete</button>
+          </td>
+        </tr>
+      `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+</script>
+</body>
+</html>

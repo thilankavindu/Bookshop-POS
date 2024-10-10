@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookPOS - Manage Orders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            color: #ffffff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+        nav {
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            list-style: none;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff6b6b;
+        }
+        main {
+            padding: 40px 0;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .card h2 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: #ffffff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background: #e65555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #ff6b6b;
+            color: #ffffff;
+        }
+        .btn-edit { background: #2196F3; }
+        .btn-delete { background: #f44336; }
+        .btn-edit:hover { background: #1e87db; }
+        .btn-delete:hover { background: #da190b; }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background: #333;
+            color: #ffffff;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav li {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>BookPOS</h1>
+        <p>Manage Orders</p>
+    </div>
+</header>
+
+<nav>
+    <div class="container">
+        <ul>
+            <li><a href="Main Page.html">Home</a></li>
+            <li><a href="Customer Management.html">Manage Customers</a></li>
+            <li><a href="Store Management.html">Manage Store</a></li>
+            <li><a href="Order Management.html">Manage Orders</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="card">
+        <h2>Place New Order</h2>
+        <form id="order-form">
+            <select id="customer" required>
+                <option value="">Select Customer</option>
+                <option value="John Doe">John Doe</option>
+                <option value="Jane Smith">Jane Smith</option>
+            </select>
+            <select id="item" required>
+                <option value="">Select Item</option>
+                <option value="Art Canvas">Art Canvas</option>
+                <option value="Oil Paints Set">Oil Paints Set</option>
+            </select>
+            <input type="number" id="quantity" placeholder="Quantity" required min="1">
+            <button type="submit" class="btn">Place Order</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Search Orders</h2>
+        <input type="text" id="search" placeholder="Search by customer name" oninput="searchOrders()">
+    </section>
+
+    <section class="card">
+        <h2>Order List</h2>
+        <table id="order-table">
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 BookPOS - Empowering Bookstores</p>
+    </div>
+</footer>
+
+<script>
+    let orders = [];
+    let orderId = 1;
+
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const customer = document.getElementById('customer').value;
+        const item = document.getElementById('item').value;
+        const quantity = document.getElementById('quantity').value;
+        const price = item === 'Art Canvas' ? 29.99 : 19.99; // Example prices
+        const total = (price * quantity).toFixed(2);
+
+        const newOrder = {
+            id: orderId++,
+            customer,
+            item,
+            quantity,
+            total
+        };
+        orders.push(newOrder);
+        renderOrders();
+        this.reset();
+    });
+
+    function renderOrders(searchTerm = '') {
+        const orderTable = document.getElementById('order-table').querySelector('tbody');
+        orderTable.innerHTML = '';
+
+        orders.filter(order => order.customer.toLowerCase().includes(searchTerm.toLowerCase())).forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>#${order.id}</td>
+                <td>${order.customer}</td>
+                <td>${order.item} (${order.quantity})</td>
+                <td>$${order.total}</td>
+                <td>
+                    <button class="btn-edit" onclick="editOrder(${order.id})">Edit</button>
+                    <button class="btn-delete" onclick="deleteOrder(${order.id})">Delete</button>
+                </td>
+            `;
+            orderTable.appendChild(row);
+        });
+    }
+
+    function searchOrders() {
+        const searchTerm = document.getElementById('search').value;
+        renderOrders(searchTerm);
+    }
+
+    function deleteOrder(id) {
+        orders = orders.filter(order => order.id !== id);
+        renderOrders();
+    }
+
+    function editOrder(id) {
+        const order = orders.find(order => order.id === id);
+        if (order) {
+            document.getElementById('customer').value = order.customer;
+            document.getElementById('item').value = order.item;
+            document.getElementById('quantity').value = order.quantity;
+            deleteOrder(id);
+        }
+    }
+</script>
+</body>
+</html>
