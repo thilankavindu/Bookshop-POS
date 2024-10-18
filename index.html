@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookPOS - Bookstore Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            color: #ffffff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+        nav {
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            list-style: none;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff6b6b;
+        }
+        main {
+            padding: 40px 0;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .card h2 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: #ffffff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background: #e65555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #ff6b6b;
+            color: #ffffff;
+        }
+        .btn-edit { background: #2196F3; }
+        .btn-delete { background: #f44336; }
+        .btn-edit:hover { background: #1e87db; }
+        .btn-delete:hover { background: #da190b; }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background: #333;
+            color: #ffffff;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav li {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>BookPOS</h1>
+        <p>Bookstore Management System</p>
+    </div>
+</header>
+
+<nav>
+    <div class="container">
+        <ul>
+            <li><a href="#home" onclick="showSection('home')">Home</a></li>
+            <li><a href="#customers" onclick="showSection('customers')">Manage Customers</a></li>
+            <li><a href="#store" onclick="showSection('store')">Manage Store</a></li>
+            <li><a href="#orders" onclick="showSection('orders')">Manage Orders</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="card">
+            <h2>Welcome to BookPOS</h2>
+            <p>Your comprehensive bookstore management solution.</p>
+        </div>
+        <div class="card">
+            <h2>Manage Customers</h2>
+            <p>Register new customers, update profiles, and track purchase history.</p>
+            <a href="#customers" class="btn" onclick="showSection('customers')">Go to Customers</a>
+        </div>
+        <div class="card">
+            <h2>Manage Store</h2>
+            <p>Track book inventory, manage supplies, and organize product categories.</p>
+            <a href="#store" class="btn" onclick="showSection('store')">Go to Store</a>
+        </div>
+        <div class="card">
+            <h2>Manage Orders</h2>
+            <p>View and manage book orders, track shipments, and process returns.</p>
+            <a href="#orders" class="btn" onclick="showSection('orders')">Go to Orders</a>
+        </div>
+    </section>
+
+    <!-- Customer Management Section -->
+    <section id="customers" class="section">
+        <div class="card">
+            <h2>Manage Customers</h2>
+            <form id="customerForm">
+                <input type="text" id="customerName" placeholder="Customer Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="tel" id="phone" placeholder="Phone Number" required>
+                <button type="submit" class="btn">Add Customer</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2>Customer List</h2>
+            <table id="customerTable">
+                <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="customerList"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Store Management Section -->
+    <section id="store" class="section">
+        <div class="card">
+            <h2>Add Item</h2>
+            <form id="addItemForm">
+                <input type="text" id="itemName" placeholder="Item Name" required>
+                <input type="number" id="itemPrice" placeholder="Price" step="0.01" min="0" required>
+                <input type="number" id="itemQuantity" placeholder="Quantity" min="0" required>
+                <button type="submit" class="btn">Add Item</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2>Inventory</h2>
+            <table id="inventoryTable">
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="inventoryList"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Order Management Section -->
+    <section id="orders" class="section">
+        <div class="card">
+            <h2>Place New Order</h2>
+            <form id="orderForm">
+                <select id="orderCustomer" required>
+                    <option value="">Select Customer</option>
+                </select>
+                <select id="orderItem" required>
+                    <option value="">Select Item</option>
+                </select>
+                <input type="number" id="orderQuantity" placeholder="Quantity" required min="1">
+                <button type="submit" class="btn">Place Order</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2>Order List</h2>
+            <table id="orderTable">
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="orderList"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 BookPOS - Empowering Bookstores</p>
+    </div>
+</footer>
+
+<script>
+    // Navigation
+    function showSection(sectionId) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
+
+    // Customer Management
+    const customers = [];
+    const customerForm = document.getElementById('customerForm');
+    const customerList = document.getElementById('customerList');
+
+    customerForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('customerName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+
+        customers.push({ name, email, phone });
+        renderCustomers();
+        updateCustomerSelect();
+        this.reset();
+    });
+
+    function renderCustomers() {
+        customerList.innerHTML = '';
+        customers.forEach((customer, index) => {
+            const row = `
+                    <tr>
+                        <td>${customer.name}</td>
+                        <td>${customer.email}</td>
+                        <td>${customer.phone}</td>
+                        <td>
+                            <button class="btn-edit" onclick="editCustomer(${index})">Edit</button>
+                            <button class="btn-delete" onclick="deleteCustomer(${index})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            customerList.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function deleteCustomer(index) {
+        customers.splice(index, 1);
+        renderCustomers();
+        updateCustomerSelect();
+    }
+
+    function editCustomer(index) {
+        const customer = customers[index];
+        document.getElementById('customerName').value = customer.name;
+        document.getElementById('email').value = customer.email;
+        document.getElementById('phone').value = customer.phone;
+        customers.splice(index, 1);
+        renderCustomers();
+        updateCustomerSelect();
+    }
+
+    // Store Management
+    const inventory = [];
+    const addItemForm = document.getElementById('addItemForm');
+    const inventoryList = document.getElementById('inventoryList');
+
+    addItemForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('itemName').value;
+        const price = document.getElementById('itemPrice').value;
+        const quantity = document.getElementById('itemQuantity').value;
+
+        inventory.push({ name, price: parseFloat(price).toFixed(2), quantity });
+        renderInventory();
+        updateItemSelect();
+        this.reset();
+    });
+
+    function renderInventory() {
+        inventoryList.innerHTML = '';
+        inventory.forEach((item, index) => {
+            const row = `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>$${item.price}</td>
+                        <td>${item.quantity}</td>
+                        <td>
+                            <button class="btn-edit" onclick="editItem(${index})">Edit</button>
+                            <button class="btn-delete" onclick="deleteItem(${index})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            inventoryList.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function deleteItem(index) {
+        inventory.splice(index, 1);
+        renderInventory();
+        updateItemSelect();
+    }
+
+    function editItem(index) {
+        const item = inventory[index];
+        document.getElementById('itemName').value = item.name;
+        document.getElementById('itemPrice').value = item.price;
+        document.getElementById('itemQuantity').value = item.quantity;
+        inventory.splice(index, 1);
+        renderInventory();
+        updateItemSelect();
+    }
+
+    // Order Management
+    const orders = [];
+    let orderId = 1;
+    const orderForm = document.getElementById('orderForm');
+    const orderList = document.getElementById('orderList');
+
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const customer = document.getElementById('orderCustomer').value;
+        const item = document.getElementById('orderItem').value;
+        const quantity = document.getElementById('orderQuantity').value;
+        const selectedItem = inventory.find(i => i.name === item);
+        const total = (selectedItem.price * quantity).toFixed(2);
+
+        orders.push({
+            id: orderId++,
+            customer,
+            item,
+            quantity,
+            total
+        });
+        renderOrders();
+        this.reset();
+    });
+
+    function renderOrders() {
+        orderList.innerHTML = '';
+        orders.forEach(order => {
+            const row = `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.customer}</td>
+                        <td>${order.item} (${order.quantity})</td>
+                        <td>$${order.total}</td>
+                        <td>
+                            <button class="btn-delete" onclick="deleteOrder(${order.id})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            orderList.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function deleteOrder(id) {
+        const index = orders.findIndex(order => order.id === id);
+        if (index !== -1) {
+            orders.splice(index, 1);
+            renderOrders();
+        }
+    }
+
+    // Update select options
+    function updateCustomerSelect() {
+        const select = document.getElementById('orderCustomer');
+        select.innerHTML = '<option value="">Select Customer</option>';
+        customers.forEach(customer => {
+            select.insertAdjacentHTML('beforeend', `<option value="${customer.name}">${customer.name}</option>`);
+        });
+    }
+
+    function updateItemSelect() {
+        const select = document.getElementById('orderItem');
+        select.innerHTML = '<option value="">Select Item</option>';
+        inventory.forEach(item => {
+            select.insertAdjacentHTML('beforeend', `<option value="${item.name}">${item.name}</option>`);
+        });
+    }
+
