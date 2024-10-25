@@ -1,287 +1,551 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BookPOS - Bookstore Management System</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Roboto', Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background-color: #f4f4f4;
-    }
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: auto;
-      overflow: hidden;
-      padding: 20px;
-    }
-    header {
-      background: linear-gradient(135deg, #ff6b6b, #ff8e72);
-      color: #ffffff;
-      padding: 1rem 0;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    header h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.5rem;
-    }
-    header p {
-      font-size: 1.2em;
-      opacity: 0.8;
-    }
-    nav {
-      background: #ffffff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
-    }
-    nav ul {
-      display: flex;
-      justify-content: space-around;
-      padding: 1rem 0;
-      list-style: none;
-    }
-    nav a {
-      color: #333;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1em;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: #ff6b6b;
-    }
-    main {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-    .card {
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-    .card h2 {
-      color: #ff6b6b;
-      margin-bottom: 1rem;
-    }
-    .card-icon {
-      font-size: 3em;
-      margin-bottom: 1rem;
-      color: #ff8e72;
-    }
-    .btn {
-      display: inline-block;
-      background: #ff6b6b;
-      color: #ffffff;
-      padding: 0.7rem 1.5rem;
-      border-radius: 25px;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background: #e65555;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      margin-top: 2rem;
-      background: #333;
-      color: #ffffff;
-    }
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        align-items: center;
-      }
-      nav li {
-        margin-bottom: 0.5rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookPOS - Bookstore Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            color: #ffffff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+        nav {
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            list-style: none;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff6b6b;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .card h2 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: #ffffff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background: #e65555;
+        }
+        .counter {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+        }
+        .counter-box {
+            background: #f4f4f4;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 1rem;
+            flex: 1;
+            margin: 0 1rem;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .action-buttons button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-edit {
+            background-color: #FF9800;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-edit:hover {
+            background-color: #e68a00;
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background: #333;
+            color: #ffffff;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav li {
+                margin-bottom: 0.5rem;
+            }
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <header>
-  <div class="container">
-    <h1>BookPOS</h1>
-    <p>Bookstore Management System</p>
-  </div>
+    <div class="container">
+        <h1>BookPOS</h1>
+        <p>Bookstore Management System</p>
+    </div>
 </header>
 
 <nav>
-  <div class="container">
-    <ul>
-      <li><a href="Main Page.html">Home</a></li>
-      <li><a href="Customer Management.html">Manage Customers</a></li>
-      <li><a href="Store Management.html">Manage Store</a></li>
-      <li><a href="Order Management.html">Manage Orders</a></li>
-    </ul>
-  </div>
+    <div class="container">
+        <ul>
+            <li><a href="#" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('manageCustomers')">Manage Customers</a></li>
+            <li><a href="#" onclick="showPage('manageOrders')">Manage Orders</a></li>
+            <li><a href="#" onclick="showPage('manageStore')">Manage Store</a></li>
+        </ul>
+    </div>
 </nav>
 
 <main class="container">
-  <section class="card">
-    <div class="card-icon">📚</div>
-    <h2>Manage Customers</h2>
-    <p>Register new customers, update profiles, and track purchase history.</p>
-    <a href="Customer Management.html" class="btn">Go to Customers</a>
-  </section>
+    <div id="home" class="card">
+        <h2>Welcome to BookPOS</h2>
+        <p>Your comprehensive bookstore management system.</p>
+        <div class="counter">
+            <div class="counter-box">
+                <h3>Customers</h3>
+                <p id="customerCount">0</p>
+            </div>
+            <div class="counter-box">
+                <h3>Orders</h3>
+                <p id="orderCount">0</p>
+            </div>
+            <div class="counter-box">
+                <h3>Items</h3>
+                <p id="itemCount">0</p>
+            </div>
+        </div>
+    </div>
 
-  <section class="card">
-    <div class="card-icon">🏪</div>
-    <h2>Manage Store</h2>
-    <p>Track book inventory, manage supplies, and organize product categories.</p>
-    <a href="Store Management.html" class="btn">Go to Store</a>
-  </section>
+    <div id="manageCustomers" class="hidden">
+        <section class="card">
+            <h2>Manage Customers</h2>
+            <p>Here you can add new customers and manage their information.</p>
+        </section>
 
-  <section class="card">
-    <div class="card-icon">📦</div>
-    <h2>Manage Orders</h2>
-    <p>View and manage book orders, track shipments, and process returns.</p>
-    <a href="Order Management.html" class="btn">Go to Orders</a>
-  </section>
+        <section class="form-container">
+            <h3>Register New Customer</h3>
+            <form id="customerForm">
+                <div class="form-group">
+                    <label for="customerName">Customer Name</label>
+                    <input type="text" id="customerName" name="customerName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">Submit</button>
+            </form>
+        </section>
+
+        <section>
+            <h3>Customer List</h3>
+            <table class="customer-table">
+                <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                </tr>
+                </thead>
+                <tbody id="customerList">
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <div id="manageOrders" class="hidden">
+        <section class="card">
+            <h2>Place New Order</h2>
+            <form id="order-form">
+                <select id="customer" required>
+                    <option value="">Select Customer</option>
+                    <!-- Customers will be dynamically populated here -->
+                </select>
+                <select id="item" required>
+                    <option value="">Select Item</option>
+                    <!-- Items will be dynamically populated here -->
+                </select>
+                <input type="number" id="quantity" placeholder="Quantity" required min="1">
+                <button type="submit" class="btn">Place Order</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Search Orders</h2>
+            <input type="text" id="search" placeholder="Search by customer name" oninput="searchOrders()">
+        </section>
+
+        <section class="card">
+            <h2>Order List</h2>
+            <table id="order-table">
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <div id="manageStore" class="hidden">
+        <section class="card">
+            <h2>Add Item</h2>
+            <form id="add-item-form">
+                <input type="text" id="item-name" placeholder="Item Name" required>
+                <input type="number" id="item-price" placeholder="Price" step="0.01" min="0" required>
+                <input type="number" id="item-quantity" placeholder="Quantity" min="0" required>
+                <button type="submit" class="btn">Add Item</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Search Item</h2>
+            <form id="search-item-form">
+                <input type="text" id="search-item" placeholder="Search by item name">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Inventory</h2>
+            <table id="inventory-table">
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </div>
 </main>
 
-
-<main class="container">
-  <section class="card">
-    <h2>Manage Customers</h2>
-    <p>Here you can add new customers, update existing profiles, and manage customer information.</p>
-  </section>
-
-  <section class="form-container">
-    <h3>Register New Customer</h3>
-    <form id="customerForm">
-      <div class="form-group">
-        <label for="customerName">Customer Name</label>
-        <input type="text" id="customerName" name="customerName" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-
-      <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" required>
-      </div>
-
-      <a href="#" class="btn" id="submitBtn">Submit</a>
-    </form>
-  </section>
-
-  <section>
-    <h3>Customer List</h3>
-    <table class="customer-table">
-      <thead>
-      <tr>
-        <th>Customer Name</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-      </tr>
-      </thead>
-      <tbody id="customerList">
-      <!-- Customer data will be inserted here -->
-      </tbody>
-    </table>
-  </section>
-</main>
-<main class="container">
-  <section class="card">
-    <h2>Place New Order</h2>
-    <form id="order-form">
-      <select id="customer" required>
-        <option value="">Select Customer</option>
-        <option value="John Doe">John Doe</option>
-        <option value="Jane Smith">Jane Smith</option>
-      </select>
-      <select id="item" required>
-        <option value="">Select Item</option>
-        <option value="Art Canvas">Art Canvas</option>
-        <option value="Oil Paints Set">Oil Paints Set</option>
-      </select>
-      <input type="number" id="quantity" placeholder="Quantity" required min="1">
-      <button type="submit" class="btn">Place Order</button>
-    </form>
-  </section>
-
-  <section class="card">
-    <h2>Search Orders</h2>
-    <input type="text" id="search" placeholder="Search by customer name" oninput="searchOrders()">
-  </section>
-
-  <section class="card">
-    <h2>Order List</h2>
-    <table id="order-table">
-      <thead>
-      <tr>
-        <th>Order ID</th>
-        <th>Customer</th>
-        <th>Items</th>
-        <th>Total</th>
-        <th>Action</th>
-      </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  </section>
-</main>
-<main class="container">
-  <section class="card">
-    <h2>Add Item</h2>
-    <form id="add-item-form">
-      <input type="text" id="item-name" placeholder="Item Name" required>
-      <input type="number" id="item-price" placeholder="Price" step="0.01" min="0" required>
-      <input type="number" id="item-quantity" placeholder="Quantity" min="0" required>
-      <button type="submit" class="btn">Add Item</button>
-    </form>
-  </section>
-
-  <section class="card">
-    <h2>Search Item</h2>
-    <form id="search-item-form">
-      <input type="text" id="search-item" placeholder="Search by item name">
-      <button type="submit" class="btn">Search</button>
-    </form>
-  </section>
-
-  <section class="card">
-    <h2>Inventory</h2>
-    <table id="inventory-table">
-      <thead>
-      <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Action</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Inventory items will be dynamically inserted here -->
-      </tbody>
-    </table>
-  </section>
-</main>
 <footer>
-  <div class="container">
-    <p>&copy; 2024 BookPOS - Empowering Bookstores</p>
-  </div>
+    <div class="container">
+        <p>&copy; 2024 BookPOS - Empowering Bookstores</p>
+    </div>
 </footer>
+
+<script>
+    let customerList = [];
+    let orders = [];
+    let orderId = 1;
+    let inventory = [];
+
+
+    document.getElementById('customerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const customerName = document.getElementById('customerName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+
+        const newCustomer = { customerName, email, phone };
+        customerList.push(newCustomer);
+        renderCustomerList();
+        updateCustomerDropdown();
+        updateCounters();
+        this.reset();
+    });
+
+    function renderCustomerList() {
+        const customerListTable = document.getElementById('customerList');
+        customerListTable.innerHTML = '';
+        customerList.forEach(customer => {
+            const row = `
+                <tr>
+                    <td>${customer.customerName}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                </tr>
+            `;
+            customerListTable.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function updateCustomerDropdown() {
+        const customerDropdown = document.getElementById('customer');
+        customerDropdown.innerHTML = '<option value="">Select Customer</option>';
+        customerList.forEach((customer) => {
+            const option = `<option value="${customer.customerName}">${customer.customerName}</option>`;
+            customerDropdown.insertAdjacentHTML('beforeend', option);
+        });
+    }
+
+    function updateCounters() {
+        document.getElementById('customerCount').textContent = customerList.length;
+        document.getElementById('orderCount').textContent = orders.length;
+        document.getElementById('itemCount').textContent = inventory.length;
+    }
+
+    // Order Management
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const customer = document.getElementById('customer').value;
+        const item = document.getElementById('item').value;
+        const quantity = document.getElementById('quantity').value;
+
+        const price = inventory.find(i => i.name === item)?.price || 0;
+        const total = (price * quantity).toFixed(2);
+
+        const newOrder = {
+            id: orderId++,
+            customer,
+            item,
+            quantity,
+            total
+        };
+        orders.push(newOrder);
+        renderOrders();
+        updateCounters();
+        this.reset();
+    });
+
+    function renderOrders(searchTerm = '') {
+        const orderTable = document.getElementById('order-table').querySelector('tbody');
+        orderTable.innerHTML = '';
+
+        orders.filter(order => order.customer.toLowerCase().includes(searchTerm.toLowerCase())).forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>#${order.id}</td>
+                <td>${order.customer}</td>
+                <td>${order.item} (${order.quantity})</td>
+                <td>$${order.total}</td>
+                <td>
+                    <button class="btn-edit" onclick="editOrder(${order.id})">Edit</button>
+                    <button class="btn-delete" onclick="deleteOrder(${order.id})">Delete</button>
+                </td>
+            `;
+            orderTable.appendChild(row);
+        });
+    }
+
+    function searchOrders() {
+        const searchTerm = document.getElementById('search').value;
+        renderOrders(searchTerm);
+    }
+
+    function deleteOrder(id) {
+        orders = orders.filter(order => order.id !== id);
+        renderOrders();
+        updateCounters();
+    }
+
+    function editOrder(id) {
+        const order = orders.find(order => order.id === id);
+        if (order) {
+            document.getElementById('customer').value = order.customer;
+            document.getElementById('item').value = order.item;
+            document.getElementById('quantity').value = order.quantity;
+            deleteOrder(id);
+        }
+    }
+
+    // Store Management
+    document.getElementById('add-item-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('item-name').value;
+        const price = document.getElementById('item-price').value;
+        const quantity = document.getElementById('item-quantity').value;
+
+        const newItem = { name, price: parseFloat(price).toFixed(2), quantity };
+        inventory.push(newItem);
+        renderInventory();
+        updateItemDropdown();
+        updateCounters();
+        this.reset();
+    });
+
+    function updateItemDropdown() {
+        const itemDropdown = document.getElementById('item');
+        itemDropdown.innerHTML = '<option value="">Select Item</option>';
+        inventory.forEach(item => {
+            const option = `<option value="${item.name}">${item.name} ($${item.price})</option>`;
+            itemDropdown.insertAdjacentHTML('beforeend', option);
+        });
+    }
+
+    document.getElementById('inventory-table').addEventListener('click', function(e) {
+        const rowIndex = e.target.closest('tr').rowIndex - 1;
+        if (e.target.classList.contains('btn-edit')) {
+            editItem(rowIndex);
+        } else if (e.target.classList.contains('btn-delete')) {
+            inventory.splice(rowIndex, 1);
+            renderInventory();
+            updateItemDropdown();
+            updateCounters();
+        }
+    });
+
+    function renderInventory() {
+        const tableBody = document.querySelector('#inventory-table tbody');
+        tableBody.innerHTML = '';
+        inventory.forEach((item) => {
+            const row = `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>$${item.price}</td>
+                    <td>${item.quantity}</td>
+                    <td class="action-buttons">
+                        <button class="btn-edit">Edit</button>
+                        <button class="btn-delete">Delete</button>
+                    </td>
+                </tr>
+            `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function editItem(index) {
+        const item = inventory[index];
+        document.getElementById('item-name').value = item.name;
+        document.getElementById('item-price').value = item.price;
+        document.getElementById('item-quantity').value = item.quantity;
+        inventory.splice(index, 1);
+        renderInventory();
+        updateItemDropdown();
+        updateCounters();
+    }
+
+    document.getElementById('search-item-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const searchQuery = document.getElementById('search-item').value.toLowerCase();
+        const filteredItems = inventory.filter(item => item.name.toLowerCase().includes(searchQuery));
+        renderFilteredInventory(filteredItems);
+    });
+
+    function renderFilteredInventory(items) {
+        const tableBody = document.querySelector('#inventory-table tbody');
+        tableBody.innerHTML = '';
+        items.forEach((item) => {
+            const row = `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>$${item.price}</td>
+                    <td>${item.quantity}</td>
+                    <td class="action-buttons">
+                        <button class="btn-edit">Edit</button>
+                        <button class="btn-delete">Delete</button>
+                    </td>
+                </tr>
+            `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+    function showPage(pageId) {
+        const pages = document.querySelectorAll('main > div');
+        pages.forEach(page => {
+            page.classList.add('hidden');
+        });
+        document.getElementById(pageId).classList.remove('hidden');
+    }
+
+    showPage('home');
+</script>
 </body>
 </html>
