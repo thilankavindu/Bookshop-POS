@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookPOS - Bookstore Management System</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,153 +13,37 @@
         }
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            line-height: 1.6;
+            line-height: 3;
             color: #333;
             background-color: #f4f4f4;
         }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-            overflow: hidden;
-            padding: 20px;
-        }
         header {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            background: linear-gradient(135deg, #050505, #050505);
             color: #ffffff;
-            padding: 1rem 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
         }
         header h1 {
             font-size: 2.5em;
             margin-bottom: 0.5rem;
         }
-        header p {
-            font-size: 1.2em;
-            opacity: 0.8;
-        }
         nav {
             background: #ffffff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
-        }
-        nav ul {
-            display: flex;
-            justify-content: space-around;
-            padding: 1rem 0;
-            list-style: none;
         }
         nav a {
             color: #333;
-            text-decoration: none;
             font-weight: bold;
-            font-size: 1.1em;
             transition: color 0.3s;
         }
         nav a:hover {
             color: #ff6b6b;
         }
-        main {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-        .card h2 {
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-        }
-        .btn {
-            display: inline-block;
-            background: #ff6b6b;
-            color: #ffffff;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-        .btn:hover {
-            background: #e65555;
-        }
-        .counter {
-            display: flex;
-            justify-content: space-around;
-            margin: 1rem 0;
-        }
-        .counter-box {
-            background: #f4f4f4;
-            border: 2px solid #ff6b6b;
-            border-radius: 10px;
-            padding: 1rem;
-            flex: 1;
-            margin: 0 1rem;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #ff6b6b;
-            color: white;
-        }
-        .action-buttons {
-            display: flex;
-            justify-content: space-between;
-        }
-        .action-buttons button {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .btn-edit {
-            background-color: #FF9800;
-            color: white;
-        }
-        .btn-delete {
-            background-color: #f44336;
-            color: white;
-        }
-        .btn-edit:hover {
-            background-color: #e68a00;
-        }
-        .btn-delete:hover {
-            background-color: #da190b;
-        }
         footer {
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
+            padding: 1rem 0;
+            margin-top: 1rem;
             background: #333;
             color: #ffffff;
-        }
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            nav li {
-                margin-bottom: 0.5rem;
-            }
         }
         .hidden {
             display: none;
@@ -167,7 +52,7 @@
 </head>
 <body>
 <header>
-    <div class="container">
+    <div class="container text-center">
         <h1>BookPOS</h1>
         <p>Bookstore Management System</p>
     </div>
@@ -175,141 +60,114 @@
 
 <nav>
     <div class="container">
-        <ul>
-            <li><a href="#" onclick="showPage('home')">Home</a></li>
-            <li><a href="#" onclick="showPage('manageCustomers')">Manage Customers</a></li>
-            <li><a href="#" onclick="showPage('manageOrders')">Manage Orders</a></li>
-            <li><a href="#" onclick="showPage('manageStore')">Manage Store</a></li>
+        <ul class="nav justify-content-center">
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('home')">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('manageCustomers')">Manage Customers</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('manageStore')">Manage Items</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('manageOrders')">Manage Orders</a></li>
         </ul>
     </div>
 </nav>
 
 <main class="container">
-    <div id="home" class="card">
+    <div id="home" class="card text-center p-4">
         <h2>Welcome to BookPOS</h2>
         <p>Your comprehensive bookstore management system.</p>
-        <div class="counter">
-            <div class="counter-box">
-                <h3>Customers</h3>
-                <p id="customerCount">0</p>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Customers</h3>
+                    <p>Total Customers: <span id="customerCount">0</span></p>
+                    <button class="btn btn-primary" onclick="showPage('manageCustomers')">Add Customer</button>
+                </div>
             </div>
-            <div class="counter-box">
-                <h3>Orders</h3>
-                <p id="orderCount">0</p>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Orders</h3>
+                    <p>Total Orders: <span id="orderCount">0</span></p>
+                    <button class="btn btn-primary" onclick="showPage('manageOrders')">Place Order</button>
+                </div>
             </div>
-            <div class="counter-box">
-                <h3>Items</h3>
-                <p id="itemCount">0</p>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Items</h3>
+                    <p>Total Items: <span id="itemCount">0</span></p>
+                    <button class="btn btn-primary" onclick="showPage('manageStore')">Manage Items</button>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="manageCustomers" class="hidden">
-        <section class="card">
+        <section class="card p-4">
             <h2>Manage Customers</h2>
-            <p>Here you can add new customers and manage their information.</p>
-        </section>
-
-        <section class="form-container">
-            <h3>Register New Customer</h3>
             <form id="customerForm">
+                <input type="hidden" id="customerIndex" value="">
                 <div class="form-group">
                     <label for="customerName">Customer Name</label>
-                    <input type="text" id="customerName" name="customerName" required>
+                    <input type="text" class="form-control" id="customerName" name="customerName" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
                 </div>
 
-                <button type="submit" class="btn" id="submitBtn">Submit</button>
+                <button type="submit" class="btn btn-primary">Add Customer</button>
+                <button type="button" class="btn btn-warning" id="updateButton" onclick="updateCustomer()">Update Customer</button>
+                <button type="button" class="btn btn-danger" id="deleteButton" onclick="deleteCustomerFromForm()">Delete Customer</button>
+                <button type="button" class="btn btn-secondary" id="searchButton" onclick="searchCustomer()">Search Customers</button>
             </form>
         </section>
 
         <section>
             <h3>Customer List</h3>
-            <table class="customer-table">
+            <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th>Customer Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
-                </tr>
-                </thead>
-                <tbody id="customerList">
-                </tbody>
-            </table>
-        </section>
-    </div>
-
-    <div id="manageOrders" class="hidden">
-        <section class="card">
-            <h2>Place New Order</h2>
-            <form id="order-form">
-                <select id="customer" required>
-                    <option value="">Select Customer</option>
-                    <!-- Customers will be dynamically populated here -->
-                </select>
-                <select id="item" required>
-                    <option value="">Select Item</option>
-                    <!-- Items will be dynamically populated here -->
-                </select>
-                <input type="number" id="quantity" placeholder="Quantity" required min="1">
-                <button type="submit" class="btn">Place Order</button>
-            </form>
-        </section>
-
-        <section class="card">
-            <h2>Search Orders</h2>
-            <input type="text" id="search" placeholder="Search by customer name" oninput="searchOrders()">
-        </section>
-
-        <section class="card">
-            <h2>Order List</h2>
-            <table id="order-table">
-                <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Items</th>
-                    <th>Total</th>
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody id="customerList"></tbody>
             </table>
         </section>
     </div>
 
     <div id="manageStore" class="hidden">
-        <section class="card">
-            <h2>Add Item</h2>
+        <section class="card p-4">
+            <h2>Add/Update Item</h2>
             <form id="add-item-form">
-                <input type="text" id="item-name" placeholder="Item Name" required>
-                <input type="number" id="item-price" placeholder="Price" step="0.01" min="0" required>
-                <input type="number" id="item-quantity" placeholder="Quantity" min="0" required>
-                <button type="submit" class="btn">Add Item</button>
+                <input type="hidden" id="itemIndex" value="">
+                <div class="form-group">
+                    <label for="item-name">Item Name</label>
+                    <input type="text" class="form-control" id="item-name" placeholder="Item Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-price">Price</label>
+                    <input type="number" class="form-control" id="item-price" placeholder="Price" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-quantity">Quantity</label>
+                    <input type="number" class="form-control" id="item-quantity" placeholder="Quantity" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Item</button>
+                <button type="button" class="btn btn-warning" id="updateItemButton" onclick="updateItem()">Update Item</button>
+                <button type="button" class="btn btn-danger" id="deleteItemButton" onclick="deleteItemFromForm()">Delete Item</button>
+                <button type="button" class="btn btn-secondary" id="searchItemButton" onclick="searchItem()">Search Item</button>
             </form>
         </section>
 
-        <section class="card">
-            <h2>Search Item</h2>
-            <form id="search-item-form">
-                <input type="text" id="search-item" placeholder="Search by item name">
-                <button type="submit" class="btn">Search</button>
-            </form>
-        </section>
-
-        <section class="card">
-            <h2>Inventory</h2>
-            <table id="inventory-table">
+        <section class="card p-4">
+            <h3>Inventory</h3>
+            <table class="table table-bordered" id="inventory-table">
                 <thead>
                 <tr>
                     <th>Item</th>
@@ -318,234 +176,304 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody></tbody>
             </table>
+        </section>
+    </div>
+
+    <div id="manageOrders" class="hidden">
+        <section class="card p-4">
+            <h2>Place New Order</h2>
+            <form id="order-form">
+                <input type="hidden" id="orderIndex" value="">
+                <div class="form-group">
+                    <label for="customer">Customer</label>
+                    <select class="form-control" id="customer" required>
+                        <option value="">Select Customer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="item">Item</label>
+                    <select class="form-control" id="item" required>
+                        <option value="">Select Item</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" placeholder="Quantity" required min="1">
+                </div>
+                <button type="submit" class="btn btn-primary">Place Order</button>
+            </form>
+        </section>
+
+        <section class="card p-4">
+            <h3>Order List</h3>
+            <table class="table table-bordered" id="order-table">
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="mt-3">
+                <strong>Grand Total: $<span id="grandTotal">0.00</span></strong>
+            </div>
         </section>
     </div>
 </main>
 
 <footer>
     <div class="container">
-        <p>&copy; 2024 BookPOS - Empowering Bookstores</p>
+        <p>&copy; 2024 BookPOS. All rights reserved.</p>
     </div>
 </footer>
 
 <script>
-    let customerList = [];
+    let customers = [];
+    let items = [];
     let orders = [];
-    let orderId = 1;
-    let inventory = [];
 
+    function showPage(pageId) {
+        document.querySelectorAll('main > div').forEach(div => {
+            div.classList.add('hidden');
+        });
+        document.getElementById(pageId).classList.remove('hidden');
+        if (pageId === 'manageOrders') {
+            populateCustomerDropdown();
+            populateItemDropdown();
+        }
+        updateCounts();
+    }
 
-    document.getElementById('customerForm').addEventListener('submit', function(e) {
+    function updateCounts() {
+        document.getElementById('customerCount').innerText = customers.length;
+        document.getElementById('itemCount').innerText = items.length;
+        document.getElementById('orderCount').innerText = orders.length;
+    }
+
+    function populateCustomerDropdown() {
+        const customerSelect = document.getElementById('customer');
+        customerSelect.innerHTML = '<option value="">Select Customer</option>';
+        customers.forEach((customer, index) => {
+            const option = `<option value="${index}">${customer.name}</option>`;
+            customerSelect.innerHTML += option;
+        });
+    }
+
+    function populateItemDropdown() {
+        const itemSelect = document.getElementById('item');
+        itemSelect.innerHTML = '<option value="">Select Item</option>';
+        items.forEach((item, index) => {
+            const option = `<option value="${index}">${item.itemName}</option>`;
+            itemSelect.innerHTML += option;
+        });
+    }
+
+    document.getElementById('customerForm').addEventListener('submit', function (e) {
         e.preventDefault();
-        const customerName = document.getElementById('customerName').value;
+        const name = document.getElementById('customerName').value;
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
-
-        const newCustomer = { customerName, email, phone };
-        customerList.push(newCustomer);
-        renderCustomerList();
-        updateCustomerDropdown();
-        updateCounters();
-        this.reset();
+        const customer = { name, email, phone };
+        customers.push(customer);
+        document.getElementById('customerForm').reset();
+        displayCustomers();
+        populateCustomerDropdown();
+        updateCounts();
     });
 
-    function renderCustomerList() {
-        const customerListTable = document.getElementById('customerList');
-        customerListTable.innerHTML = '';
-        customerList.forEach(customer => {
-            const row = `
-                <tr>
-                    <td>${customer.customerName}</td>
-                    <td>${customer.email}</td>
-                    <td>${customer.phone}</td>
-                </tr>
-            `;
-            customerListTable.insertAdjacentHTML('beforeend', row);
-        });
-    }
-
-    function updateCustomerDropdown() {
-        const customerDropdown = document.getElementById('customer');
-        customerDropdown.innerHTML = '<option value="">Select Customer</option>';
-        customerList.forEach((customer) => {
-            const option = `<option value="${customer.customerName}">${customer.customerName}</option>`;
-            customerDropdown.insertAdjacentHTML('beforeend', option);
-        });
-    }
-
-    function updateCounters() {
-        document.getElementById('customerCount').textContent = customerList.length;
-        document.getElementById('orderCount').textContent = orders.length;
-        document.getElementById('itemCount').textContent = inventory.length;
-    }
-
-    // Order Management
-    document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const customer = document.getElementById('customer').value;
-        const item = document.getElementById('item').value;
-        const quantity = document.getElementById('quantity').value;
-
-        const price = inventory.find(i => i.name === item)?.price || 0;
-        const total = (price * quantity).toFixed(2);
-
-        const newOrder = {
-            id: orderId++,
-            customer,
-            item,
-            quantity,
-            total
-        };
-        orders.push(newOrder);
-        renderOrders();
-        updateCounters();
-        this.reset();
-    });
-
-    function renderOrders(searchTerm = '') {
-        const orderTable = document.getElementById('order-table').querySelector('tbody');
-        orderTable.innerHTML = '';
-
-        orders.filter(order => order.customer.toLowerCase().includes(searchTerm.toLowerCase())).forEach(order => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>#${order.id}</td>
-                <td>${order.customer}</td>
-                <td>${order.item} (${order.quantity})</td>
-                <td>$${order.total}</td>
+    function displayCustomers() {
+        const customerList = document.getElementById('customerList');
+        customerList.innerHTML = '';
+        customers.forEach((customer, index) => {
+            const row = `<tr>
+                <td>${customer.name}</td>
+                <td>${customer.email}</td>
+                <td>${customer.phone}</td>
                 <td>
-                    <button class="btn-edit" onclick="editOrder(${order.id})">Edit</button>
-                    <button class="btn-delete" onclick="deleteOrder(${order.id})">Delete</button>
+                    <button class="btn btn-warning" onclick="editCustomer(${index})">Edit</button>
                 </td>
-            `;
-            orderTable.appendChild(row);
+            </tr>`;
+            customerList.innerHTML += row;
         });
     }
 
-    function searchOrders() {
-        const searchTerm = document.getElementById('search').value;
-        renderOrders(searchTerm);
+    function editCustomer(index) {
+        const customer = customers[index];
+        document.getElementById('customerName').value = customer.name;
+        document.getElementById('email').value = customer.email;
+        document.getElementById('phone').value = customer.phone;
+        document.getElementById('customerIndex').value = index;
     }
 
-    function deleteOrder(id) {
-        orders = orders.filter(order => order.id !== id);
-        renderOrders();
-        updateCounters();
-    }
-
-    function editOrder(id) {
-        const order = orders.find(order => order.id === id);
-        if (order) {
-            document.getElementById('customer').value = order.customer;
-            document.getElementById('item').value = order.item;
-            document.getElementById('quantity').value = order.quantity;
-            deleteOrder(id);
+    function updateCustomer() {
+        const index = document.getElementById('customerIndex').value;
+        if (index) {
+            const customer = {
+                name: document.getElementById('customerName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value
+            };
+            customers[index] = customer;
+            document.getElementById('customerForm').reset();
+            displayCustomers();
+            populateCustomerDropdown();
+            updateCounts();
         }
     }
 
-    // Store Management
-    document.getElementById('add-item-form').addEventListener('submit', function(e) {
+    function deleteCustomerFromForm() {
+        const index = document.getElementById('customerIndex').value;
+        if (index) {
+            customers.splice(index, 1);
+            document.getElementById('customerForm').reset();
+            displayCustomers();
+            populateCustomerDropdown();
+            updateCounts();
+        }
+    }
+
+    function searchCustomer() {
+        const searchTerm = prompt("Enter customer name to search:");
+        const results = customers.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        alert(results.length ? JSON.stringify(results) : "No customers found");
+    }
+
+    document.getElementById('add-item-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        const name = document.getElementById('item-name').value;
-        const price = document.getElementById('item-price').value;
-        const quantity = document.getElementById('item-quantity').value;
-
-        const newItem = { name, price: parseFloat(price).toFixed(2), quantity };
-        inventory.push(newItem);
-        renderInventory();
-        updateItemDropdown();
-        updateCounters();
-        this.reset();
+        const itemName = document.getElementById('item-name').value;
+        const itemPrice = document.getElementById('item-price').value;
+        const itemQuantity = document.getElementById('item-quantity').value;
+        const item = { itemName, itemPrice, itemQuantity };
+        items.push(item);
+        document.getElementById('add-item-form').reset();
+        displayItems();
+        populateItemDropdown();
+        updateCounts();
     });
 
-    function updateItemDropdown() {
-        const itemDropdown = document.getElementById('item');
-        itemDropdown.innerHTML = '<option value="">Select Item</option>';
-        inventory.forEach(item => {
-            const option = `<option value="${item.name}">${item.name} ($${item.price})</option>`;
-            itemDropdown.insertAdjacentHTML('beforeend', option);
-        });
-    }
-
-    document.getElementById('inventory-table').addEventListener('click', function(e) {
-        const rowIndex = e.target.closest('tr').rowIndex - 1;
-        if (e.target.classList.contains('btn-edit')) {
-            editItem(rowIndex);
-        } else if (e.target.classList.contains('btn-delete')) {
-            inventory.splice(rowIndex, 1);
-            renderInventory();
-            updateItemDropdown();
-            updateCounters();
-        }
-    });
-
-    function renderInventory() {
-        const tableBody = document.querySelector('#inventory-table tbody');
-        tableBody.innerHTML = '';
-        inventory.forEach((item) => {
-            const row = `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>$${item.price}</td>
-                    <td>${item.quantity}</td>
-                    <td class="action-buttons">
-                        <button class="btn-edit">Edit</button>
-                        <button class="btn-delete">Delete</button>
-                    </td>
-                </tr>
-            `;
-            tableBody.insertAdjacentHTML('beforeend', row);
+    function displayItems() {
+        const inventoryTableBody = document.querySelector('#inventory-table tbody');
+        inventoryTableBody.innerHTML = '';
+        items.forEach((item, index) => {
+            const row = `<tr>
+                <td>${item.itemName}</td>
+                <td>${item.itemPrice}</td>
+                <td>${item.itemQuantity}</td>
+                <td>
+                    <button class="btn btn-warning" onclick="editItem(${index})">Edit</button>
+                </td>
+            </tr>`;
+            inventoryTableBody.innerHTML += row;
         });
     }
 
     function editItem(index) {
-        const item = inventory[index];
-        document.getElementById('item-name').value = item.name;
-        document.getElementById('item-price').value = item.price;
-        document.getElementById('item-quantity').value = item.quantity;
-        inventory.splice(index, 1);
-        renderInventory();
-        updateItemDropdown();
-        updateCounters();
+        const item = items[index];
+        document.getElementById('item-name').value = item.itemName;
+        document.getElementById('item-price').value = item.itemPrice;
+        document.getElementById('item-quantity').value = item.itemQuantity;
+        document.getElementById('itemIndex').value = index;
     }
 
-    document.getElementById('search-item-form').addEventListener('submit', function(e) {
+    function updateItem() {
+        const index = document.getElementById('itemIndex').value;
+        if (index) {
+            const item = {
+                itemName: document.getElementById('item-name').value,
+                itemPrice: document.getElementById('item-price').value,
+                itemQuantity: document.getElementById('item-quantity').value
+            };
+            items[index] = item;
+            document.getElementById('add-item-form').reset();
+            displayItems();
+            populateItemDropdown();
+            updateCounts();
+        }
+    }
+
+    function deleteItemFromForm() {
+        const index = document.getElementById('itemIndex').value;
+        if (index) {
+            items.splice(index, 1);
+            document.getElementById('add-item-form').reset();
+            displayItems();
+            populateItemDropdown();
+            updateCounts();
+        }
+    }
+
+    function searchItem() {
+        const searchTerm = prompt("Enter item name to search:");
+        const results = items.filter(i => i.itemName.toLowerCase().includes(searchTerm.toLowerCase()));
+        alert(results.length ? JSON.stringify(results) : "No items found");
+    }
+
+    document.getElementById('order-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        const searchQuery = document.getElementById('search-item').value.toLowerCase();
-        const filteredItems = inventory.filter(item => item.name.toLowerCase().includes(searchQuery));
-        renderFilteredInventory(filteredItems);
+        const customerIndex = document.getElementById('customer').value;
+        const itemIndex = document.getElementById('item').value;
+        const quantity = document.getElementById('quantity').value;
+
+        if (customerIndex !== "" && itemIndex !== "") {
+            const order = {
+                customer: customers[customerIndex].name,
+                item: items[itemIndex].itemName,
+                quantity: quantity,
+                price: items[itemIndex].itemPrice,
+                total: (items[itemIndex].itemPrice * quantity).toFixed(2)
+            };
+            orders.push(order);
+            document.getElementById('order-form').reset();
+            displayOrders();
+            calculateGrandTotal();
+            updateCounts();
+        } else {
+            alert("Please select a customer and an item.");
+        }
     });
 
-    function renderFilteredInventory(items) {
-        const tableBody = document.querySelector('#inventory-table tbody');
-        tableBody.innerHTML = '';
-        items.forEach((item) => {
-            const row = `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>$${item.price}</td>
-                    <td>${item.quantity}</td>
-                    <td class="action-buttons">
-                        <button class="btn-edit">Edit</button>
-                        <button class="btn-delete">Delete</button>
-                    </td>
-                </tr>
-            `;
-            tableBody.insertAdjacentHTML('beforeend', row);
+    function displayOrders() {
+        const orderTableBody = document.querySelector('#order-table tbody');
+        orderTableBody.innerHTML = '';
+        orders.forEach((order, index) => {
+            const row = `<tr>
+                <td>${index + 1}</td>
+                <td>${order.customer}</td>
+                <td>${order.item}</td>
+                <td>${order.quantity}</td>
+                <td>${order.price}</td>
+                <td>${order.total}</td>
+                <td>
+                    <button class="btn btn-danger" onclick="deleteOrder(${index})">Delete</button>
+                </td>
+            </tr>`;
+            orderTableBody.innerHTML += row;
         });
-    }
-    function showPage(pageId) {
-        const pages = document.querySelectorAll('main > div');
-        pages.forEach(page => {
-            page.classList.add('hidden');
-        });
-        document.getElementById(pageId).classList.remove('hidden');
     }
 
-    showPage('home');
+    function calculateGrandTotal() {
+        const grandTotal = orders.reduce((total, order) => total + parseFloat(order.total), 0).toFixed(2);
+        document.getElementById('grandTotal').innerText = grandTotal;
+    }
+
+    function deleteOrder(index) {
+        orders.splice(index, 1);
+        displayOrders();
+        calculateGrandTotal();
+        updateCounts();
+    }
 </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
